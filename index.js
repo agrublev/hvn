@@ -1,135 +1,3 @@
-// var program = require('commander');
-// //
-// // program
-// // .version('0.1.0')
-// // .option('-p, --peppers', 'Add peppers')
-// // .option('-P, --pineapple', 'Add pineapple')
-// // .option('-b, --bbq-sauce', 'Add bbq sauce')
-// // .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
-// // .parse(process.argv);
-// //
-// // console.log('you ordered a pizza with:');
-// // if (program.peppers) console.log('  - peppers');
-// // if (program.pineapple) console.log('  - pineapple');
-// // if (program.bbqSauce) console.log('  - bbq');
-// // console.log('  - %s cheese', program.cheese);
-// //
-// //
-// //
-// const {addListener, mainStory} = require('storyboard');
-// // mainStory.info('Hellsso world!');
-// require('storyboard-preset-console');
-//
-// const browserExtListener = require('storyboard-listener-browser-extension').default;
-//
-// addListener(browserExtListener);
-//
-// // console.warn("ASD");
-// // console.log("ASDSD");
-// // mainStory.trace('Teeny-weeny detail: x = 3, y = 4');
-// // mainStory.debug('Called login()');
-// // mainStory.info('User "admin" authenticated successfully');
-// // mainStory.warn('Sad we can\'t show colors in GFM');
-// // mainStory.error('User "admin" could not be authenticated', {attach: {}});
-// // mainStory.fatal('Ooops! Crashed! Mayday!', {attach: {}});
-// const execa = require('execa');
-//
-// // (async () => {
-// // 	const {stdout} = await execa('', []);
-// // 	console.log(stdout);
-// // 	// => 'unicorns'
-// // })();
-//
-//
-// (async () => {
-// 	// Pipe the child process stdout to the current stdout
-// 	//parcel
-// 	console.warn("ASD");
-// 	execa('cd ../freedcamp/freedcamp-chat; gulp').stdout.pipe(process.stdout);
-//
-//
-// 	// Run a shell command
-// 	const {stdout} = await execa.shell('echo unicorns');
-// 	mainStory.info("1", stdout);
-// 	//=> 'unicorns'
-//
-//
-// 	// Catching an error
-// 	try {
-// 		await execa.shell('exit 3');
-// 	} catch (error) {
-// 		mainStory.fatal('222!', error);
-// 		/*
-// 		{
-// 			message: 'Command failed: /bin/sh -c exit 3'
-// 			killed: false,
-// 			code: 3,
-// 			signal: null,
-// 			cmd: '/bin/sh -c exit 3',
-// 			stdout: '',
-// 			stderr: '',
-// 			timedOut: false
-// 		}
-// 		*/
-// 	}
-// })();
-//
-// // Catching an error with a sync method
-// try {
-// 	execa.shellSync('exit 3');
-// } catch (error) {
-// 	mainStory.fatal('33333s!', error);
-// 	/*
-// 	{
-// 		message: 'Command failed: /bin/sh -c exit 3'
-// 		code: 3,
-// 		signal: null,
-// 		cmd: '/bin/sh -c exit 3',
-// 		stdout: '',
-// 		stderr: '',
-// 		timedOut: false
-// 	}
-// 	*/
-// }
-// // program
-// // .version('0.1.0')
-// // .option('-C, --chdir <path>', 'change the working directory')
-// // .option('-c, --config <path>', 'set config path. defaults to ./deploy.conf')
-// // .option('-T, --no-tests', 'ignore test hook');
-// //
-// // program
-// // .command('setup [env]')
-// // .description('run setup commands for all envs')
-// // .option("-s, --setup_mode [mode]", "Which setup mode to use")
-// // .action(function(env, options){
-// // 	var mode = options.setup_mode || "normal";
-// // 	env = env || 'all';
-// // 	console.log('setup for %s env(s) with %s mode', env, mode);
-// // });
-// //
-// // program
-// // .command('exec <cmd>')
-// // .alias('ex')
-// // .description('execute the given remote cmd')
-// // .option("-e, --exec_mode <mode>", "Which exec mode to use")
-// // .action(function(cmd, options){
-// // 	console.log('exec "%s" using %s mode', cmd, options.exec_mode);
-// // }).on('--help', function() {
-// // 	console.log('');
-// // 	console.log('Examples:');
-// // 	console.log('');
-// // 	console.log('  $ deploy exec sequential');
-// // 	console.log('  $ deploy exec async');
-// // });
-// //
-// // program
-// // .command('*')
-// // .action(function(env){
-// // 	console.log('deploying "%s"', env);
-// // });
-// //
-// // program.parse(process.argv);
-
 'use strict'
 
 const Buffer = require('safe-buffer').Buffer
@@ -141,9 +9,9 @@ const parseArgs = require('./parse-args.js')
 const path = require('path')
 const which = promisify(require('which'))
 
-module.exports = npx
+module.exports = hvn
 module.exports.parseArgs = parseArgs
-function npx (argv) {
+function hvn (argv) {
 	const shell = argv['shell-auto-fallback']
 	if (shell || shell === '') {
 		const fallback = require('./auto-fallback.js')(
@@ -176,7 +44,7 @@ function npx (argv) {
 		return Promise.all([
 			// Figuring out if a command exists, early on, lets us maybe
 			// short-circuit a few things later. This bit here primarily benefits
-			// calls like `$ npx foo`, where we might just be trying to invoke
+			// calls like `$ hvn foo`, where we might just be trying to invoke
 			// a single command and use whatever is already in the path.
 			argv.command && getExistingPath(argv.command, argv),
 			// The `-c` flag involves special behavior when used: in this case,
@@ -204,7 +72,7 @@ function npx (argv) {
 				// Some npm packages need to be installed. Let's install them!
 				return ensurePackages(argv.package, argv).then(results => {
 					if (results && results.added && results.updated && !argv.q) {
-						console.error(Y()`npx: installed ${
+						console.error(Y()`hvn: installed ${
 						results.added.length + results.updated.length
 							} in ${(Date.now() - startTime) / 1000}s`)
 					}
