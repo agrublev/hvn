@@ -13,17 +13,19 @@
  * - etc
  * @type {module.run}
  */
-module.exports = class run {
-	constructor(args) {
-console.warn("INELISE");
-	}
 
+
+module.exports = class run {
 	async run() {
-		// can get args as an object
-		const {args} = this.args;
-		console.log(`running my command with args: ${args.firstArg}, ${args.secondArg}`)
-		// can also get the args as an array
-		const {argv} = this.parse(MyCLI)
-		console.log(`running my command with args: ${argv[0]}, ${argv[1]}`)
-	}
+    const {exec} = require('child_process');
+
+    var child = exec('gulp', {async: true})
+    child.stdout.on('data', function (data) {
+      console.log(data)
+      /* ... do something with data ... */
+    })
+
+
+
+  }
 }
