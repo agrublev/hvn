@@ -1,10 +1,11 @@
 {
   "name": "hvn",
-  "version": "1.2.52",
+  "version": "1.2.652",
   "description": "The greatest tool on earth",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NPX_UPDATE_LOCALE_FILES=true LC_ALL=en nyc --all -- tap -J test/*.js"
+    "test": "echo '25sad'",
+    "start": "sh bashme.sh"
   },
   "files": [
     "app"
@@ -30,6 +31,8 @@
   },
   "dependencies": {
     "args": "^5.0.0",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.6",
     "chalk-pipe": "^2.0.0",
     "check-python": "^1.0.0",
     "clear": "^0.1.0",
@@ -39,6 +42,7 @@
     "colors": "^1.1.2",
     "commander": "^2.18.0",
     "dotenv": "^5.0.1",
+    "edit-json-file": "^1.1.0",
     "execa": "^1.0.0",
     "inquirer": "^6.2.0",
     "npm": "^5.7.1",
@@ -50,10 +54,14 @@
     "simplecrawler": "^0.5.3",
     "storyboard": "^3.1.4",
     "storyboard-listener-browser-extension": "^3.1.4",
-    "storyboard-preset-console": "^3.1.4"
+    "storyboard-preset-console": "^3.1.4",
+    "write-json-file": "^3.0.2"
   },
   "homepage": "https://github.com/agrublev/hvn#readme",
   "devDependencies": {
     "babel-core": "^6.26.3"
+  },
+  "hvn": {
+    "run": "start"
   }
 }

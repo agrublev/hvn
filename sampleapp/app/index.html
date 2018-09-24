@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="FiftyTwoApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>52project</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body ng-controller="MyController">
+    <ul>
+        <li ng-repeat="entry in entries">
+            <!-- edit a message -->
+            {{entry.text}}
+        </li>
+    </ul>
+
+    <p>Hello worlzzasdd! This is a 52project.</p>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/firebase/firebase.js"></script>
+    <script src="../bower_components/firebase/firebase-firestore.js"></script>
+    <script src="../bower_components/angularfire/dist/angularfire.min.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyAQqTYP4hHpNq5WXpkzTRQTulw5-J9hyNc",
+            authDomain: "freedcamp-notifications.firebaseapp.com",
+            databaseURL: "https://freedcamp-notifications.firebaseio.com",
+            projectId: "freedcamp-notifications",
+            storageBucket: "552576775563",
+            messagingSenderId: "552576775563"
+        };
+        firebase.initializeApp(config);
+        // Initialize Cloud Firestore through Firebase
+        const db = firebase.firestore();
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
