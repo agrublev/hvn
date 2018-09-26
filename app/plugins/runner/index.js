@@ -9,24 +9,18 @@ module.exports = class Plugin {
         let self = this;
         self.name = 'runner';
         self.commands = {
-            'add': () => {exec:() => add();},
+            'add': {exec: () => add()},
             'update': {exec: () => console.log('ASD')},
             'start': {exec: () => console.log('ASD')}
         };
-        const matchers = ['', '', ''];
-        //     {'add': new add(config)}
-        // ];
         self.items = [];
         if (data.projects !== undefined && data.projects.length) {
-            // self.matchers[project.name] = project.location;
             data.projects.forEach((prj) => {
                 self.items.push(<ProjectItem name={prj.name}/>);
-                matchers.push(prj.name);
+                searchEngine.add(self.name + '.' + prj.name, {name: prj.name});
             });
         }
         this.activePlugin = -1;
-        // const {search, activate, render, deactivate} = this;
-        // return {search, activate, render, deactivate, matchers};
         return this;
     }
 
@@ -39,7 +33,6 @@ module.exports = class Plugin {
         return new Promise(function (resolve, reject) {
             if (self.matchers[query] !== undefined && self.activePlugin === -1) {
                 // ACTIVATE PLUGIN
-                console.warn('---', self.matchers, query);
                 self.activePlugin = query;
                 self.matchers[query].activate().then(({matcherList}) => {
                     resolve(matcherList);
@@ -52,17 +45,4 @@ module.exports = class Plugin {
         });
     };
 
-    activate = async () => {
-        return {matcherList: this.matchers};
-    };
-
-    deactivate = () => {
-        this.activePlugin = -1;
-    };
-
-    // function renderPreview(id, payload, render) {
-    //     // you can render preview with HTML
-    // }
-
-    //, renderPreview
 };

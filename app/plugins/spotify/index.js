@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 
 const Player = (props) => {
@@ -13,35 +12,45 @@ const Player = (props) => {
 
 module.exports = class Plugin {
     constructor (searchEngine, config) {
-        this.config = config;
-        let data = config.get();
         let self = this;
+        self.config = config;
+        self.config.get();
         self.name = 'spotify';
         self.commands = {
-            'play': {exec: () => self.play(true)},
-            'pause': {exec: () => self.play(false)},
-            'volume': {param: true, exec: (param) => self.volume(param)}
-            // 'volume.down': {exec: () => self.volume(false)},
-            // 'volume.$volume': {exec: () => self.volume(volume)}
+            'play': {
+                exec: () => self.play(true),
+                render: <div onClick={() => {self.play(false);}} className="playMusic false">Pause</div>
+            },
+            'pause': {
+                exec: () => self.play(false),
+                render: <div onClick={() => {self.play(true);}} className="playMusic">Play</div>
+            },
+            'volume': {
+                param: true, exec: (param) => self.volume(param),
+                render: <div>
+                    <div onClick={(props) => {
+                        self.volume('up');
+                    }} className="playMusic">Volume Up
+                    </div>
+                    <div onClick={(props) => {
+                        self.activate('down');
+                    }} className="playMusic">Volume Up
+                    </div>
+                </div>
+            }
         };
-        // const matchers = Object.keys(self.commands);
-        // const {search, commands, render} = this;
         return this;
     }
 
     render = async () => {
         let self = this;
         return new Promise(function (resolve, reject) {
-
             const {execSync, spawn} = require('child_process');
             const path = require('path');
             const goTo = process.cwd() + '/spot.sh';
             let track;
             var child = spawn('sh', [goTo, 'track', '-p']);
             let isPlaying = true;
-            //Everyday I Dream of You | Whilk & Misky
-            // isPlaying
-            // time: 1:14 - 4:3
             let time = '';
             let currentTrack = '';
             let concatData = '';
@@ -50,12 +59,7 @@ module.exports = class Plugin {
             });
 
             child.on('close', function (code) {
-                // child.stdout.on('data', function (data) {
-                console.log('Finished with code ' + code);
-
-                // track = stdout.split('\n').filter((e) => e.charAt(0) !== '-' && e.indexOf('Now Playing') === -1)[0];
                 let lines = concatData.split('\n');
-                console.log(concatData);
                 lines.forEach((line, indz) => {
                     if (line.indexOf('Playing') !== -1) {
                         if (line.trim() === 'isNotPlaying') {
@@ -67,43 +71,17 @@ module.exports = class Plugin {
                         currentTrack = line.trim();
                     }
                 });
-                console.warn(isPlaying, currentTrack, time);
-                resolve([<Player name="spotify" isPlaying={isPlaying} time={time} currentTrack={currentTrack}/>,
-                    <div onSelected={() => {self.activate('play');}} className="playMusic">Playu the music boy</div>,
-                    <div onSelected={() => {self.activate('pause');}} className="playMusic false">STOP IT MAN</div>]);
-                // resolve({
-                //     matcherList: false, render:
-                // });
+                resolve([
+                    <Player name="spotify" isPlaying={isPlaying} time={time} currentTrack={currentTrack}/>, Object.keys(self.commands).map((cm) => self.commands[cm].render)]);
             });
         });
-    };
-
-    search = async (query, items, e) => {
-        // let self = this;
-        // console.warn('aaaa', query, self.matchers);
-        // if (query === 'pause') {
-        //     self.play(false);
-        //     return {query: false, items: []};
-        // } else if (query === 'play') {
-        //     self.play(true);
-        //     return {query: false, items: []};
-        // } else {
-        //     return {query: query, items: []};
-        // }
-        // if (this.matchers[query] !== undefined) {
-        //     let run = self.matchers[query];
-        //     run();
-
-        // } else {
-        //
-        // }
     };
 
     play (too) {
         const {exec, spawn} = require('child_process');
         const path = require('path');
         const goTo = process.cwd() + '/spot.sh';
-        // console.error('sh ' + goTo + (too ? ' play' : 'pause');
+        spawn('sh ' + goTo + (too ? ' play' : ' pause'), {stdio: 'inherit', shell: true})
         spawn('sh ' + goTo + (too ? ' play' : ' pause'), {stdio: 'inherit', shell: true})
         .on('exit', function (error) {
             if (!error) {
@@ -127,54 +105,4 @@ module.exports = class Plugin {
             }
         });
     }
-
-    activate (command) {
-        let too = command === 'play';
-        const {exec, spawn} = require('child_process');
-        const path = require('path');
-        const goTo = process.cwd() + '/spot.sh';
-        // console.error('sh ' + goTo + (too ? ' play' : 'pause');
-        spawn('sh ' + goTo + (too ? ' play' : ' pause'), {stdio: 'inherit', shell: true})
-        .on('exit', function (error) {
-            if (!error) {
-                console.log('Success!');
-            } else {
-                console.log('ERRIR!');
-            }
-        });
-
-        // let runit = await execSync(,
-        //     (error, stdout, stderr) => {
-        //
-        //         console.warn('RETURN)', track[0]);
-        //         return track;
-        //         if (error !== null) {
-        //             console.log(`exec error: ${error}`);
-        //         }
-        //         console.log(`${stderr}`);
-        //     }
-        // );
-        // console.warn(runit, track, result);
-        // }
-        //
-        // spawn(, {stdio: 'inherit', shell: true})
-        //     .on('exit', function (error) {
-        //         if (!error) {
-        //             console.log('Success!', error);
-        //         } else {
-        //             console.log('ERRIR!', error);
-        //         }
-        //     });
-
-    };
-
-    deactivate = () => {
-        this.activePlugin = -1;
-    };
-
-    // function renderPreview(id, payload, render) {
-    //     // you can render preview with HTML
-    // }
-
-    //, renderPreview
 };
