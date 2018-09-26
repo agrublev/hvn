@@ -95,6 +95,26 @@
     "url": "https://github.com/chentsulin"
   },
   "license": "MIT",
+  "plugins": [
+    {
+      "name": "Project Runner",
+      "short": "runner",
+      "icon": "fal fa-terminal",
+      "prefix": "run."
+    },
+    {
+      "name": "Spotify",
+      "short": "spotify",
+      "icon": "fal fa-music",
+      "prefix": "spotify."
+    },
+    {
+      "name": "How do i",
+      "short": "how",
+      "icon": "fal fa-question-circle",
+      "prefix": "how."
+    }
+  ],
   "bugs": {
     "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
   },
@@ -102,9 +122,7 @@
     "electron",
     "boilerplate",
     "react",
-    "redux",
     "flow",
-    "sass",
     "webpack",
     "hot",
     "reload"
@@ -114,7 +132,7 @@
     "testURL": "http://localhost/",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
-      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
       "js"
@@ -150,6 +168,7 @@
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
     "css-loader": "^1.0.0",
+    "data-store": "^3.1.0",
     "detect-port": "^1.2.3",
     "electron": "^2.0.6",
     "electron-builder": "^20.26.0",
@@ -182,14 +201,13 @@
     "lint-staged": "^7.2.0",
     "mini-css-extract-plugin": "^0.4.1",
     "minimist": "^1.2.0",
-    "node-sass": "^4.9.2",
+    "node-spotify-webhelper": "0.0.6",
     "npm-logical-tree": "^1.2.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prettier": "^1.14.0",
     "react-test-renderer": "^16.4.1",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
-    "sass-loader": "^7.0.3",
     "sinon": "^6.1.4",
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
@@ -202,13 +220,25 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.3",
+    "winston": "^3.1.0",
     "yarn": "^1.9.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "ent": "^2.2.0",
+    "google": "^1.4.0",
     "history": "^4.7.2",
+    "keypress": "^0.2.1",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "lodash": "^4.17.11",
+    "marked": "0.3.12",
+    "nconf": "^0.8.4",
+    "npm-latest": "^1.0.1",
+    "openurl": "^1.1.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.4",
@@ -218,7 +248,14 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "source-map-support": "^0.5.6"
+    "request": "^2.88.0",
+    "semver": "5.1.0",
+    "simple-spinner": "0.0.5",
+    "source-map-support": "^0.5.6",
+    "spotify-web-helper": "^1.14.0",
+    "url": "^0.11.0",
+    "yargs": "^4.1.0",
+    "zlib": "^1.0.5"
   },
   "devEngines": {
     "node": ">=7.x",
