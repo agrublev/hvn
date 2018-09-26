@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-const add = require('./add');
 
-const ProjectItem = (props) => <div>{props.name}</div>;
+const opn = require('opn');
+
+const Applicatoin = (props) => <div>{props.name}</div>;
 module.exports = class Plugin {
     constructor (searchEngine, config) {
         this.config = config;
         let data = config.get();
         let self = this;
-        self.name = 'runner';
-        self.commands = {
-            'add': () => {exec:() => add();},
-            'update': {exec: () => console.log('ASD')},
-            'start': {exec: () => console.log('ASD')}
-        };
-        const matchers = ['', '', ''];
-        //     {'add': new add(config)}
-        // ];
+        self.name = 'applauncher';
         self.items = [];
-        if (data.projects !== undefined && data.projects.length) {
-            // self.matchers[project.name] = project.location;
-            data.projects.forEach((prj) => {
-                self.items.push(<ProjectItem name={prj.name}/>);
-                matchers.push(prj.name);
+        self.apps = config.get();
+        self.apps = self.apps['applications'];
+        if (self.apps !== undefined) {
+            Object.keys(self.apps).forEach((app) => {
+                self.items.push(<Applicatoin onSelected={(props) => {
+                    console.warn('9-22  apps[item.props.name].filePath', self.apps[props.name]);
+                    opn(self.apps[props.name].arg);
+                }} name={app}/>);
+                searchEngine.add('applauncher.' + self.apps[app].title, {name: self.apps[app].title});
             });
         }
         this.activePlugin = -1;
@@ -30,7 +27,8 @@ module.exports = class Plugin {
         return this;
     }
 
-    render = (items) => {
+    render = async (items) => {
+        console.warn('RENDER');
         return this.items.filter((e) => items.indexOf(e.props.name) !== -1);
     };
 
