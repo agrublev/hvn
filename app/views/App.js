@@ -109,6 +109,7 @@ export default class App extends Component {
         ipcRenderer.on('ready', () => {
             self.setState({isReady: 'newRender' + Math.random()});
             const {remote} = require('electron');
+            remote.getCurrent().setOpacity(1);
             // remote.getCurrent().show();
         });
     }
@@ -121,14 +122,24 @@ export default class App extends Component {
     }
 
     hide () {
-        // const {remote} = require('electron');
+        const {remote} = require('electron');
+        remote.BrowserWindow.getAllWindows()[0].setOpacity(0.66);
         // remote.BrowserWindow.getAllWindows()[0].minimize();
+    }
+
+    focus () {
+        const {remote} = require('electron');
+        remote.BrowserWindow.getAllWindows()[0].setOpacity(0.95);
     }
 
     render () {
         const {activePlugin, items, render} = this.state;
         return (
             <div id="wrap">
+                <div className="titlebar webkit-draggable">
+                    <div className="titlebar-stoplight">
+                    </div>
+                </div>
                 <div id="frosty"></div>
                 <div id="icon-wrap">
                     {activePlugin !== -1 ?
@@ -147,6 +158,7 @@ export default class App extends Component {
                 <input type="text"
                     onBlur={() => this.hide()}
                     id="main-input"
+                    onFocus={() => this.focus()}
                     placeholder="start typing for commands..."
                     ref={(ref) => {this.ref = ref;}}
                     onKeyUp={(e) => this.handleChange(e)}

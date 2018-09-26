@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
     <style>
-      @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
-      @import url('https://webdevbook.s3.amazonaws.com/font/css/fontawesome-all.css');
+        @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
+        @import url('https://webdevbook.s3.amazonaws.com/font/css/fontawesome-all.css');
+        .titlebar{padding:0 3px;background-color:#f6f6f6}.titlebar.webkit-draggable{-webkit-app-region:drag}.titlebar-stoplight{float:left;text-align:left}.titlebar-stoplight:after,.titlebar:after{content:' ';display:table;clear:both}.titlebar-stoplight:hover svg,.titlebar-stoplight:hover svg.fullscreen-svg,.titlebar-stoplight:hover svg.maximize-svg{opacity:1}.titlebar.alt svg.fullscreen-svg{display:none}.titlebar.alt svg.maximize-svg{display:block}.titlebar-close,.titlebar-fullscreen,.titlebar-minimize{float:left;width:10px;height:10px;border-radius:50%;margin:6px 4px;line-height:0}.titlebar.webkit-draggable .titlebar-close,.titlebar.webkit-draggable .titlebar-fullscreen,.titlebar.webkit-draggable .titlebar-minimize{-webkit-app-region:no-drag}.titlebar-close{border:1px solid #e2463f;background-color:#ff5f57;margin-left:6px}.titlebar-close:active{border-color:#ad3934;background-color:#bf4943}.titlebar-close svg{width:6px;height:6px;margin-top:2px;margin-left:2px;opacity:0}.titlebar-minimize{border:1px solid #e1a116;background-color:#ffbd2e}.titlebar-minimize:active{border-color:#ad7d15;background-color:#bf9123}.titlebar-minimize svg{width:8px;height:8px;margin-top:1px;margin-left:1px;opacity:0}.titlebar-fullscreen,.titlebar-maximize{border:1px solid #12ac28;background-color:#28c940}.titlebar-fullscreen:active{border-color:#128622;background-color:#1f9a31}.titlebar-fullscreen svg.fullscreen-svg{width:6px;height:6px;margin-top:2px;margin-left:2px;opacity:0}.titlebar-fullscreen svg.maximize-svg{width:8px;height:8px;margin-top:1px;margin-left:1px;opacity:0;display:none}
     </style>
     <script>
-      (function() {
-        if (!process.env.HOT) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = './dist/style.css';
-          // HACK: Writing the script path should be done with webpack
-          document.getElementsByTagName('head')[0].appendChild(link);
-        }
-      }());
+        (function () {
+            if (!process.env.HOT) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = './dist/style.css';
+                // HACK: Writing the script path should be done with webpack
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        }());
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script>
-      {
+</head>
+<body>
+<div id="root"></div>
+<script>
+    {
         const scripts = [];
 
         // Dynamically insert the DLL script in development env in the
         // renderer process
         if (process.env.NODE_ENV === 'development') {
-          scripts.push('../dll/renderer.dev.dll.js');
+            scripts.push('../dll/renderer.dev.dll.js');
         }
 
         // Dynamically insert the bundled app script in the renderer process
         const port = process.env.PORT || 1212;
         scripts.push(
-          (process.env.HOT)
-            ? 'http://localhost:' + port + '/dist/renderer.dev.js'
-            : './dist/renderer.prod.js'
+            (process.env.HOT)
+                ? 'http://localhost:' + port + '/dist/renderer.dev.js'
+                : './dist/renderer.prod.js'
         );
 
         document.write(
-          scripts
+            scripts
             .map(script => `<script defer src="${script}"><\/script>`)
             .join('')
         );
-      }
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>

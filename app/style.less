@@ -8,29 +8,55 @@ body {
 #frosty {
     position: absolute;
     z-index: -1;
-    background: rgba(0, 0, 0, 0.56);
     left: 0;right: 0;bottom: 0;top: 0;
-    -webkit-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    filter: blur(5px); background-size: cover;
-    width: 100%;
+    //background: rgba(0, 0, 0, 0.56);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.001);
+    //filter: blur(5px); background-size: cover;
+    width: calc(~"100% - 2px");
+    overflow: hidden;
     &:before {
         position: absolute;
-        z-index: -1; background-size: cover;
-        background: rgba(0, 0, 0, 0.56);
+        display: block;
+        background: rgba(0, 0, 0, 0.36) url(https://cdnme.s3.amazonaws.com/cdn/5f68-e688-Rectangle.png) no-repeat;
         left: 0;right: 0;bottom: 0;top: 0;
-        -webkit-filter: blur(2px);
-        filter: blur(2px);
-        width: 100%;
+        background-size: cover;
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
+        width: 300%;
+        z-index: 99;
+        height: 300%;
+        content: " ";
+    }
+    &:after {
+        position: absolute;
+        display: block;
+        background: rgba(0, 0, 0, 0.36) url(https://cdnme.s3.amazonaws.com/cdn/5f68-e688-Rectangle.png) no-repeat;
+        left: 0;right: 0;bottom: 0;top: 0;
+        background-size: cover;
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
+        width: 300%;
+        margin-left: -200px;
+        margin-top: -50px;
+        z-index: 99;
+        height: 300%;
         content: " ";
     }
 }
 #wrap {
+    &:hover {
+        .titlebar {
+            top: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+    }
     position: fixed;
     z-index: 50;
-    top: 0;left: 0;right: 0;
+    top: 18px;left: 0;right: 0;
     //box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     width: calc(~"100% -5px");
     display: flex;
     justify-content: flex-start;
@@ -44,7 +70,7 @@ body {
         }
         
         i {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.76);
             font-size: 34px;
         }
         
@@ -73,7 +99,7 @@ body {
     &::placeholder {
         font-weight: 200;
         font-family: "Helvetica Neue", Helvetica, sans-serif;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.752);
         text-shadow: none;
         font-style: italic;
     }
@@ -124,4 +150,18 @@ body {
             margin-right: 5px;
         }
     }
+}
+.titlebar {
+    position: fixed;
+    right: 2px;left: 2px;
+    height: 20px;
+    border-radius: 5px 5px 0 0;
+    -webkit-app-region: drag;
+    z-index: 99;
+    opacity: 0;
+    cursor: move;
+    visibility: hidden;
+    top: 11px;
+    transition: all 0.3s linear;
+    background: rgba(0, 0, 0, 0.5);
 }

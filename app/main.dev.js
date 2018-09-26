@@ -67,10 +67,11 @@ app.on('ready', async () => {
         show: false,
         transparent: true,
         width: 1024,
-        hasShadow: false,
+        hasShadow: true,
         titleBarStyle: 'customButtonsOnHover',
         height: 728
     });
+    mainWindow.setOpacity(0.8);
 
     mainWindow.loadURL(`file://${__dirname}/app.html`);
 

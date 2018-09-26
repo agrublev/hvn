@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
-import App from './containers/App'
+import App from './views/App'
 import './style.less'
 
 
@@ -13,8 +13,8 @@ render(
 )
 
 if (module.hot) {
-    module.hot.accept('./containers/App', () => {
-        const NextRoot = require('./containers/App') // eslint-disable-line
+    module.hot.accept('./views/App', () => {
+        const NextRoot = require('./views/App') // eslint-disable-line
         // global-require
         render(
             <AppContainer>
