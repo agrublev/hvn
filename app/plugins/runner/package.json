@@ -1,0 +1,56 @@
+{
+  "name": "gulp-app",
+  "productName": "Gulp",
+  "version": "0.0.1",
+  "description": "Gulp as an app (macOS)",
+  "license": "MIT",
+  "repository": "sindresorhus/gulp-app",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "contributors": [
+    "Fabrice Weinberg <Fabrice@weinberg.me>"
+  ],
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . --asar --overwrite --out=dist --icon=\"../media/icon.icns\"",
+    "test": "xo"
+  },
+  "keywords": [
+    "electron-app",
+    "gulp",
+    "gulpfile",
+    "buil",
+    "tool",
+    "task",
+    "runner",
+    "app",
+    "ui",
+    "macos",
+    "osx"
+  ],
+  "private": true,
+  "dependencies": {
+    "current-path": "^2.0.0",
+    "display-notification": "^2.0.0",
+    "electron-debug": "^1.0.0",
+    "fix-path": "^2.0.0",
+    "get-gulp-tasks": "^4.0.0",
+    "gulp": "^3.6.2",
+    "lodash": "^4.13.1",
+    "pkg-up": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "^1.3.3",
+    "electron-packager": "^8.5.1",
+    "xo": "*"
+  },
+  "xo": {
+    "esnext": true,
+    "rules": {
+      "import/no-dynamic-require": "off"
+    }
+  }
+}
