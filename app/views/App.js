@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import Mark from 'mark.js';
-
-const path = require('path');
-// const osApps = require('os-apps');
-// const fileIcon = require('file-icon');
+import '../style.less'
 
 var options = {
     shouldSort: true,
@@ -19,11 +15,8 @@ var options = {
     ]
 };
 import { DocumentIndex } from 'ndx';
-
 const searchEngine = new DocumentIndex();
 searchEngine.addField('name', {boost: 1});
-const Store = require('data-store');
-const store = new Store({path: 'config.json'});
 const plugins = require('../../package.json').plugins;
 const pluginList = {};
 let matchers = [];
@@ -46,26 +39,7 @@ function configStore (name, store) {
     return {update, get};
 }
 
-plugins.forEach(function (plug, ix) {
-    if (store.data[plug.short] === undefined) {
-        let plugData = {};
-        plugData[plug.short] = {};
-        store.set(plugData);
-    }
-    let pluginInit = require('../plugins/' + plug.short);
-    let storeAccess = configStore(plug.short, store);
-    let pluginData = new pluginInit(searchEngine, storeAccess);
-    if (pluginData.commands) {
-        Object.keys(pluginData.commands).forEach((matchMe) => {
-            searchEngine.add(plug.short + '.' + matchMe, {name: matchMe});
-        });
-    }
-    pluginList[plug.short] = pluginData;
-
-    searchEngine.add(plug.short, {name: plug.short});
-});
-const {ipcRenderer} = require('electron');
-
+// import Combined from './components/uiexamples';<Combinef
 export default class App extends Component {
     constructor (props) {
         super(props);
@@ -77,12 +51,51 @@ export default class App extends Component {
             activePlugin: -1,
             items: []
         };
+
+        let self = this;
+        self.checkGetFile().then(function (config) {
+            plugins.forEach(function (plug, ix) {
+                if (self.store.data[plug.short] === undefined) {
+                    let plugData = {};
+                    plugData[plug.short] = {};
+                    store.set(plugData);
+                }
+                let pluginInit = require('../plugins/' + plug.short);
+                let storeAccess = configStore(plug.short, self.store);
+                let pluginData = new pluginInit(searchEngine, self.storeAccess);
+                if (pluginData.commands) {
+                    Object.keys(pluginData.commands).forEach((matchMe) => {
+                        searchEngine.add(plug.short + '.' + matchMe, {name: matchMe});
+                    });
+                }
+                pluginList[plug.short] = pluginData;
+
+                searchEngine.add(plug.short, {name: plug.short});
+            });
+        });
+    }
+
+    checkGetFile () {
+        const Store = require('data-store');
+        const exec = require('child_process').exec;
+        let self = this;
+        return new Promise(function (resolve, reject) {
+            const fs = require('fs');
+            if (!fs.existsSync('config.json')) {
+                exec('echo "" >> config.json; chmod 777 config.json', (error, stdout, stderr) => {
+                    self.store = new Store({path: 'config.json'});
+                });
+            } else {
+                self.store = new Store({path: 'config.json'});
+            }
+        });
     }
 
     handleChange = async (e) => {
-        e.preventDefault();
+        e.stopPropagation();
+
         let self = this;
-        if ((e.key == 'ArrowUp' || e.key === 'Up') && self.state.commandHistory.length) {
+        if ((e.key === 'ArrowUp' || e.key === 'Up') && self.state.commandHistory.length) {
             let last = self.state.commandHistory[self.state.commandHistory.length - 1];
             pluginList[last.plugin].commands[last.command].exec(last.value);
         }
@@ -117,7 +130,7 @@ export default class App extends Component {
         }
 
         return false;
-    };
+    }
 
     resetState (command, value) {
         let self = this;
@@ -136,6 +149,8 @@ export default class App extends Component {
 
     componentDidMount () {
         let self = this;
+
+        const {ipcRenderer} = require('electron');
         ipcRenderer.on('ready', () => {
             self.setState({isReady: 'newRender' + Math.random()});
         });
@@ -168,12 +183,13 @@ export default class App extends Component {
         remote.BrowserWindow.getAllWindows()[0].setOpacity(0.95);
     }
 
-    loadAnItem (props) {
+    loadAnItem () {
         self = this;
         self.resetState();
     }
 
     render () {
+        let self = this;
         const {activePlugin, items, render} = this.state;
         // if(!this.ref.focused) {
         //
@@ -205,7 +221,7 @@ export default class App extends Component {
                     onFocus={() => this.focus()}
                     placeholder="start typing for commands..."
                     ref={(ref) => {this.ref = ref;}}
-                    onKeyUp={(e) => this.handleChange(e)}
+                    onKeyPress={this.handleChange.bind(this)}
                 />
                 {items.length ? <ul className="itemList">
                     {items.map((item, index) => <li key={index} onClick={() => this.loadAnItem(items[index].props)}>

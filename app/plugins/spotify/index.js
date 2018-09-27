@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
 const Player = (props) => {
-    const {currentTrack, isPlaying, time} = props;
+    const {currentTrack, art, isPlaying, time} = props;
     return (<div className="spotifyInfo">
-        <h2>
+        <img className="albumArt" src={art}/>
+        <div><h2>
             <i className={'fa ' + (isPlaying ? 'fa-play' : 'fa-pause')}> </i>
             {currentTrack} </h2>
-        <div className="time">{time}</div>
+            <div className="time">{time}</div>
+        </div>
     </div>);
 };
 
@@ -71,8 +73,12 @@ module.exports = class Plugin {
                         currentTrack = line.trim();
                     }
                 });
-                resolve([
-                    <Player name="spotify" isPlaying={isPlaying} time={time} currentTrack={currentTrack}/>, Object.keys(self.commands).map((cm) => self.commands[cm].render)]);
+                const albumArt = require('album-art');
+                albumArt(currentTrack.split(' | ')[0]).then((art) => {
+                    // if(art.indexOf("No image") === -1){
+                    resolve([
+                        <Player name="spotify" art={art} isPlaying={isPlaying} time={time} currentTrack={currentTrack}/>, Object.keys(self.commands).map((cm) => self.commands[cm].render)]);
+                });
             });
         });
     };

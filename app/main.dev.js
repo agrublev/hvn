@@ -10,14 +10,14 @@
  * `./app/main.prod.js` using webpack. This gives us some
  * performance wins.
  *
- * @flow
  */
 import { app, BrowserWindow, globalShortcut } from 'electron';
 import MenuBuilder from './menu';
+import Screens from './lib/screens';
 
+const screens = new Screens();
 if (require('electron-squirrel-startup')) app.quit();
 let mainWindow = null;
-
 if (process.env.NODE_ENV === 'production') {
     const sourceMapSupport = require('source-map-support');
     sourceMapSupport.install();
@@ -46,22 +46,22 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
+app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
+});
 
 app.on('window-all-closed', () => {
-    // Respect the OSX convention of having the application
-    // in memory even after all windows have been closed
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+    globalShortcut.unregisterAll();
+    app.quit();
 });
 
 app.on('ready', async () => {
-    if (
-        process.env.NODE_ENV === 'development' ||
-        process.env.DEBUG_PROD === 'true'
-    ) {
+    // if (
+    //     process.env.NODE_ENV === 'development' ||
+    //     process.env.DEBUG_PROD === 'true'
+    // ) {
         await installExtensions();
-    }
+    // }
 
     mainWindow = new BrowserWindow({
         show: false,
@@ -78,21 +78,32 @@ app.on('ready', async () => {
     // @TODO: Use 'ready-to-show' event
     //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
     mainWindow.webContents.on('did-finish-load', () => {
-        if (!mainWindow) {
-            throw new Error('"mainWindow" is not defined');
-        }
-        if (process.env.START_MINIMIZED) {
-            mainWindow.minimize();
-        } else {
-            mainWindow.show();
-            mainWindow.focus();
-        }
+        // if (!mainWindow) {
+        //     throw new Error('"mainWindow" is not defined');
+        // }
+        // if (process.env.START_MINIMIZED) {
+        //     mainWindow.minimize();
+        // } else {
+        //     mainWindow.show();
+        //     mainWindow.focus();
+        // }
     });
     // Register a 'CommandOrControl+X' shortcut listener.
     const ret = globalShortcut.register('Alt+Space', () => {
         // remote.BrowserWindow.getAllWindows()[0].minimize();
-        mainWindow.restore();
+        // mainWindow.focus();
+        const position = screens.getCenterPositionOnCurrentScreen();
+        if (position) {
+            mainWindow.setPosition(position.x, position.y);
+        }
+        mainWindow.show();
         mainWindow.focus();
+        screens.getCurrentScreen();
+        if (position) {
+            mainWindow.setPosition(position.x, position.y);
+        }
+        mainWindow.restore();
+
         mainWindow.webContents.send('ready'); // send to renderer
         // mainWindow.loadURL(mainWindow.webContents.getURL() + "#52sd" + Math.random())
     });
@@ -110,6 +121,38 @@ app.on('ready', async () => {
     });
     mainWindow.on('closed', () => {
         mainWindow = null;
+    });
+
+    mainWindow.on('blur', () => {
+        console.log('verbose', 'sending hide event signal from blur event');
+        // if (mainWindow.isVisible())
+        mainWindow.hide();
+        mainWindow.minimize();
+        console.warn('hideWindow');
+    });
+
+    mainWindow.on('move', () => {
+        const currentWindowPosition = mainWindow.getPosition();
+        screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1]);
+    });
+
+    mainWindow.on('moved', () => {
+        const currentWindowPosition = mainWindow.getPosition();
+        screens.saveWindowPositionOnCurrentScreen(currentWindowPosition[0], currentWindowPosition[1]);
+    });
+
+    mainWindow.on('showWindow', () => {
+        console.log('info', 'showing window from manual trigger');
+        const position = screens.getCenterPositionOnCurrentScreen();
+        if (position) {
+            mainWindow.setPosition(position.x, position.y);
+        }
+        mainWindow.show();
+        mainWindow.focus();
+        screens.getCurrentScreen();
+        if (position) {
+            mainWindow.setPosition(position.x, position.y);
+        }
     });
 
     const menuBuilder = new MenuBuilder(mainWindow);

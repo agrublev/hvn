@@ -76,8 +76,7 @@ export default merge.smart(baseConfig, {
                         ]
                     }
                 }
-            },
-            {
+            }, {
                 test: /\\.css$/,
                 use: [
                     {

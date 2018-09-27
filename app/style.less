@@ -79,6 +79,18 @@ body {
         }
     }
 }
+.openApp {
+    &:hover {
+        background: tomato;
+    }
+    display: flex;
+    align-items: center;
+    img {
+        margin-right: 15px;
+        width: 30px;
+        height: 30px;
+    }
+}
 #main-input {
     font-family: "San Francisco Text", "Helvetica Neue", Helvetica, sans-serif;
     letter-spacing: -1px;
@@ -135,20 +147,32 @@ body {
         }
     }
 }
-.spotifyPlayer {
-    position: absolute;
-    top: 100%;
+.spotifyInfo {
+    //position: absolute;
+    //top: 100%;
     background: rgba(255, 255, 255, 5.5);
-    right: 0;left: 0;
+    //right: 0;left: 0;
     padding: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     h2 {
         display: flex;
+        margin-top: 15px;
         align-items: center;
         i {
             font-size: 11px;
             color: rgba(0, 0, 0, 0.6);
             margin-right: 5px;
         }
+    }
+    .albumArt {
+        background: tomato;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-right: 15px;
+        width: 90px;
+        height: 90px;
     }
 }
 .titlebar {

@@ -1,6 +1,4 @@
 'use strict';
-const remote = window.require('electron').remote;
-const dialog = remote.dialog;
 
 module.exports = function add (query, items, e) {
     let self = this;
@@ -9,6 +7,8 @@ module.exports = function add (query, items, e) {
         if (query.indexOf('Name:') !== -1) {
             if (e.keyCode === 13) {
                 // SAVE NAME
+                const remote = require('electron').remote;
+                const dialog = remote.dialog;
                 let project = {name: query.replace('Name:', '').trim()};
                 project.location = dialog.showOpenDialog({properties: ['openDirectory']});
                 if (self.data.projects === undefined) {
