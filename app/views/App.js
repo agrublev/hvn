@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style.less'
+// import '../style.less'
 
 var options = {
     shouldSort: true,

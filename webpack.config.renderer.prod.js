@@ -33,23 +33,13 @@ export default merge.smart(baseConfig, {
         rules: [
             // Extract all .global.css to style.css as is
             {
-                test: /\\.css$/,
+                test: /\.global\.css$/,
                 use: [
                     {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            sourceMap: true
+                            publicPath: './'
                         }
-                    }
-                ]
-            }, {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: 'style-loader'
                     },
                     {
                         loader: 'css-loader',
@@ -59,10 +49,40 @@ export default merge.smart(baseConfig, {
                     }
                 ]
             },
+            // Pipe other styles through css modules and append to style.css
+            {
+                test: /^((?!\.global).)*\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
             {
                 test: /\.less/,
                 exclude: /(node_modules)/,
-                loader: 'style-loader!css-loader!less-loader'
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'style-loader!css-loader!less-loader',
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                            sourceMap: true
+                        }
+                    }
+                ]
             },
             // WOFF Font
             {

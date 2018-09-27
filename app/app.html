@@ -6,6 +6,202 @@
     <style>
         @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
         @import url('https://webdevbook.s3.amazonaws.com/font/css/fontawesome-all.css');
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: transparent;
+            font-family: 'Oxygen', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        #frosty {
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.001);
+            width: calc(100% - 2px);
+            overflow: hidden;
+        }
+        #frosty:before {
+            position: absolute;
+            display: block;
+            background: rgba(0, 0, 0, 0.36) url(https://cdnme.s3.amazonaws.com/cdn/5f68-e688-Rectangle.png) no-repeat;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            background-size: cover;
+            -webkit-filter: blur(12px);
+            filter: blur(12px);
+            width: 300%;
+            z-index: 99;
+            height: 300%;
+            content: " ";
+        }
+        #frosty:after {
+            position: absolute;
+            display: block;
+            background: rgba(0, 0, 0, 0.36) url(https://cdnme.s3.amazonaws.com/cdn/5f68-e688-Rectangle.png) no-repeat;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            background-size: cover;
+            -webkit-filter: blur(12px);
+            filter: blur(12px);
+            width: 300%;
+            margin-left: -200px;
+            margin-top: -50px;
+            z-index: 99;
+            height: 300%;
+            content: " ";
+        }
+        #wrap {
+            position: fixed;
+            z-index: 50;
+            top: 18px;
+            left: 0;
+            right: 0;
+            width: calc(100% - 5px);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3052);
+            border: 1px solid rgba(0, 0, 0, 0.9);
+        }
+        #wrap:hover .titlebar {
+            top: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+        #wrap #icon-wrap i,
+        #wrap #icon-wrap svg {
+            margin: 0 0 0 15px;
+        }
+        #wrap #icon-wrap i {
+            color: rgba(255, 255, 255, 0.76);
+            font-size: 34px;
+        }
+        #wrap #icon-wrap svg {
+            opacity: 0.5;
+        }
+        .openApp {
+            display: flex;
+            align-items: center;
+        }
+        .openApp:hover {
+            background: tomato;
+        }
+        .openApp img {
+            margin-right: 15px;
+            width: 30px;
+            height: 30px;
+        }
+        #main-input {
+            font-family: "San Francisco Text", "Helvetica Neue", Helvetica, sans-serif;
+            letter-spacing: -1px;
+            text-shadow: 0 1px 0 #000;
+            background: transparent;
+            border: 0;
+            padding: 16px 32px 16px 18px;
+            font-size: 31px;
+            width: auto;
+            min-width: 600px;
+            font-weight: 300;
+            color: white;
+        }
+        #main-input:focus {
+            outline: 0;
+        }
+        #main-input::placeholder {
+            font-weight: 200;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            color: rgba(255, 255, 255, 0.752);
+            text-shadow: none;
+            font-style: italic;
+        }
+        .itemList {
+            position: absolute;
+            top: 100%;
+            overflow: auto;
+            height: 100vh;
+            -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -mox-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            background: rgba(255, 255, 255, 0.91952);
+            right: 0;
+            left: 0;
+        }
+        .itemList .totalAnswer {
+            padding: 20px;
+            border: 2px solid #ccc;
+        }
+        .itemList li {
+            padding: 12px 25px;
+            border-bottom: 1px solid white;
+        }
+        .itemList a {
+            color: #333;
+            text-decoration: none;
+        }
+        .itemList a h2 {
+            margin-bottom: 10px;
+        }
+        .itemList a p {
+            margin-bottom: 15px;
+        }
+        .itemList a .link {
+            font-size: 10px;
+        }
+        .spotifyInfo {
+            background: rgba(255, 255, 255, 5.5);
+            padding: 30px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .spotifyInfo h2 {
+            display: flex;
+            margin-top: 15px;
+            align-items: center;
+        }
+        .spotifyInfo h2 i {
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-right: 5px;
+        }
+        .spotifyInfo .albumArt {
+            background: tomato;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+            width: 90px;
+            height: 90px;
+        }
+        .titlebar {
+            position: fixed;
+            right: 2px;
+            left: 2px;
+            height: 20px;
+            border-radius: 5px 5px 0 0;
+            -webkit-app-region: drag;
+            z-index: 99;
+            opacity: 0;
+            cursor: move;
+            visibility: hidden;
+            top: 11px;
+            transition: all 0.3s linear;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
     </style>
     <script>
         (function () {

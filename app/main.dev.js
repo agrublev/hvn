@@ -16,7 +16,7 @@ import MenuBuilder from './menu';
 import Screens from './lib/screens';
 
 const screens = new Screens();
-if (require('electron-squirrel-startup')) app.quit();
+// if (require('electron-squirrel-startup')) app.quit();
 let mainWindow = null;
 if (process.env.NODE_ENV === 'production') {
     const sourceMapSupport = require('source-map-support');
