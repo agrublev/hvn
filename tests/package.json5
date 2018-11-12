@@ -1,0 +1,27 @@
+{
+    /**
+    * Sexy
+    */
+    "name": 'Sexy',
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        // Comment on your scripts
+        "test": "echo \"Error: no test specified\" && exit 1",
+        /**
+            Or dontas dasd sad sadas
+        */
+        "hello": "echo 'hello'",
+        // My new scrip
+        "start": "parcel index.html"
+    },
+    "author": "",
+    "license": "ISC",
+    // De[s ua;;
+    "dependencies": {
+        "del": "^3.0.0",
+        "fkit": "^1.4.0",
+        "json5-writer": "^0.1.6"
+    }
+}

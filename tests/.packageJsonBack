@@ -1,0 +1,1 @@
+{"name":"Sexy","version":"1.0.0","description":"","main":"index.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1","hello":"echo 'hello'","start":"parcel index.html"},"author":"","license":"ISC","dependencies":{"del":"^3.0.0","fkit":"^1.4.0","json5-writer":"^0.1.6"}}
