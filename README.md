@@ -43,7 +43,9 @@ USAGE
 ## `hvn command`
 
 Lets you get information about common commands you'd want to run like find/zip
-
+<p align="center">
+  <img width="700" src="https://cdnme.s3.amazonaws.com/cdn/f2dc-2c72-hvn.gif">
+</p>
 ```
 USAGE
   $ hvn command
