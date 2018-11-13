@@ -19,7 +19,7 @@ $ npm install -g hvn
 $ hvn COMMAND
 running command...
 $ hvn (-v|--version|version)
-hvn/2.0.0 darwin-x64 node-v8.11.3
+hvn/2.0.1 darwin-x64 node-v8.11.3
 $ hvn --help [COMMAND]
 USAGE
   $ hvn COMMAND
