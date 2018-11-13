@@ -2,6 +2,10 @@ hvn
 ===
 
 Awesoness, in a terminal cli :
+<p align="center">
+  <a href="https://asciinema.org/a/do7yJeULeMfWUyoIv8i2lp0a8"><img width="700" src="https://cdnme.s3.amazonaws.com/cdn/2812-3813-hvn.png"></a>
+</p>
+
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/rad.svg)](https://npmjs.org/package/rad)
