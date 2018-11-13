@@ -1,21 +1,36 @@
 {
     "name": "hvn",
-    "version": "1.0.0",
-    "description": "THe best runner",
+    "version": "1.2.652",
+    "description": "The greatest tool on earth",
     "main": "index.js",
     "license": "MIT",
     "bin": {
         "hvn": "./index.js"
     },
+    "scripts": {
+        "run": "node index.js",
+        "test": "node index.js",
+        "hello": "echo 'hello'; sleep 2; echo 'bye!'",
+        "sex": "node index.js"
+    },
     "dependencies": {
+        "cheerio": "~0.10.5",
+        "cli-color": "^0.3.2",
+        "cli-table": "^0.3.1",
+        "cowsay": "^1.3.1",
         "del": "^3.0.0",
         "fs": "^0.0.1-security",
-        "github": "^14.0.0",
         "global": "^4.3.2",
         "json5": "^2.1.0",
-        "json5-writer": "^0.1.6"
+        "json5-writer": "^0.1.6",
+        "lolcatjs": "^2.3.2",
+        "optimist": "~0.3.5",
+        "read-package-json": "^2.0.13",
+        "request": "~2.12.0",
+        "surge": "^0.20.1",
+        "tty": "^1.0.1",
+        "tty-table": "^2.6.9"
     },
-
     "devDependencies": {
         "@octokit/rest": "^15.17.0",
         "chalk": "^2.4.1",

@@ -13,7 +13,8 @@
   "dependencies": {
     "del": "^3.0.0",
     "fkit": "^1.4.0",
-    "json5-writer": "^0.1.6"
+    "json5-writer": "^0.1.6",
+    "read-package-json": "^2.0.13"
   },
   "devDependencies": {
     "@octokit/rest": "^15.17.0",
