@@ -17,6 +17,20 @@ class Editor extends Command {
 Editor.description = `Edit any file just like in a real ide!
 ...
 Just type hvn editor FILE
+Default keybindings
+Quit: Ctrl+Q
+Movement: mouse or arrow keys and PageUp/Down/Home/End
+Shift or click+drag to select, Ctrl/Alt to move faster
+Save: Ctrl+S
+Undo: Ctrl+Z, redo: Ctrl+Y
+List open tabs: Ctrl+L
+Next/previous tab: Ctrl+Alt+PageUp/Down
+Close tab: Ctrl+W
+Find: Ctrl+F
+Go to line: Ctrl+G
+Go to matching bracket: Ctrl+]
+Open: Ctrl+O (or click the filebrowser)
+New file: Ctrl+N
 `;
 
 module.exports = Editor;
