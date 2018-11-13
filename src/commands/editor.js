@@ -2,7 +2,7 @@ const {Command} = require('@oclif/command');
 const {exec, echo} = require("shelljs");
 const chalk = require("chalk");
 const spawn = require("child_process").spawn;
-
+const fs = require("fs");
 
 const {text, clear, bigText, sleep} = require("../helpers");
 
