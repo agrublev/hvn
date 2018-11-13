@@ -27,7 +27,7 @@
 	},
 	"scripts": {
 		"run": "node index.js",
-		"release": "release-it",
+		"release": "release-it --no-npm.publish -n; npm publish",
 		"hello": "echo 'hello'; sleep 2; echo 'bye!'",
 		"sex": "parcel src/index.js",
 		"postpack": "rm -f oclif.manifest.json",
@@ -62,6 +62,7 @@
 		"del": "^3.0.0",
 		"figlet": "^1.2.1",
 		"fs": "^0.0.1-security",
+		"give-me-a-joke": "^0.1.2",
 		"global": "^4.3.2",
 		"hacker": "^1.1.2",
 		"inquirer": "^6.2.0",

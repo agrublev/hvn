@@ -31,10 +31,11 @@ const helper = {
 	clear: function () {
 		clear();
 	},
-	bigText: async function (text) {
+	bigText: async function (text, shouldClear = true) {
 		return new Promise(function (resolve) {
-			clear();
-
+			if (shouldClear) {
+				clear();
+			}
 			figlet.text(text, {
 				font: "ANSI Shadow",// Three Point // Ogre
 				horizontalLayout: 'full',
@@ -50,7 +51,9 @@ const helper = {
 				`);
 				lolcatjs.fromString(data);
 				setTimeout(function () {
-					clear();
+					if (shouldClear) {
+						clear();
+					}
 					resolve();
 					// startRead();
 					//
