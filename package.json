@@ -1,6 +1,6 @@
 {
 	"name": "hvn",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"description": "The greatest tool on earth",
 	"main": "index.js",
 	"repository": "https://github.com/agrublev/hvn",
