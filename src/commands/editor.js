@@ -8,9 +8,26 @@ const {text, clear, bigText, sleep} = require("../helpers");
 
 class Editor extends Command {
 	async run() {
-		let param = process.argv.slice(3, 50).join(" ");
-		console.log(param);
-		const child = spawn("slap", [param], {shell: true, stdio: 'inherit'});
+		if (!fs.existsSync("/usr/local/bin/slap")) {
+			let child = exec("curl -sL https://raw.githubusercontent.com/slap-editor/slap/master/install.sh | sh", {
+				async: true,
+				silent: true
+			});
+			child.stdout.on('data', function (data) {
+				console.log(chalk.yellow(data));
+			});
+			child.on("close", function (code) {
+				let param = process.argv.slice(3, 50).join(" ");
+				console.log(param);
+				const child = spawn("slap", [param], {shell: true, stdio: 'inherit'});
+			});
+
+		} else {
+			let param = process.argv.slice(3, 50).join(" ");
+			console.log(param);
+			const child = spawn("slap", [param], {shell: true, stdio: 'inherit'});
+		}
+
 	}
 }
 
