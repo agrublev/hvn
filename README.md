@@ -19,7 +19,7 @@ $ npm install -g hvn
 $ hvn COMMAND
 running command...
 $ hvn (-v|--version|version)
-hvn/2.1.0 darwin-x64 node-v8.11.3
+hvn/2.1.1 darwin-x64 node-v8.11.3
 $ hvn --help [COMMAND]
 USAGE
   $ hvn COMMAND
@@ -32,6 +32,7 @@ USAGE
 * [`hvn deploy`](#hvn-deploy)
 * [`hvn hello`](#hvn-hello)
 * [`hvn help [COMMAND]`](#hvn-help-command)
+* [`hvn helpme`](#hvn-helpme)
 * [`hvn howdoi`](#hvn-howdoi)
 * [`hvn run`](#hvn-run)
 * [`hvn task`](#hvn-task)
@@ -49,7 +50,7 @@ DESCRIPTION
   It's amazing
 ```
 
-_See code: [src/commands/command.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/command.js)_
+_See code: [src/commands/command.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/command.js)_
 
 ## `hvn deploy`
 
@@ -64,7 +65,7 @@ DESCRIPTION
   An easy way to run any of your npm scripts with yarn
 ```
 
-_See code: [src/commands/deploy.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/deploy.js)_
+_See code: [src/commands/deploy.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/deploy.js)_
 
 ## `hvn hello`
 
@@ -82,7 +83,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/hello.js)_
 
 ## `hvn help [COMMAND]`
 
@@ -101,6 +102,21 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 
+## `hvn helpme`
+
+Describe the command here
+
+```
+USAGE
+  $ hvn helpme
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/helpme.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/helpme.js)_
+
 ## `hvn howdoi`
 
 hvn command // will run command promp
@@ -114,7 +130,7 @@ DESCRIPTION
   An easy way to run any of your npm scripts with yarn
 ```
 
-_See code: [src/commands/howdoi.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/howdoi.js)_
+_See code: [src/commands/howdoi.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/howdoi.js)_
 
 ## `hvn run`
 
@@ -129,7 +145,7 @@ DESCRIPTION
   An easy way to run any of your npm scripts with yarn
 ```
 
-_See code: [src/commands/run.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/run.js)_
+_See code: [src/commands/run.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/run.js)_
 
 ## `hvn task`
 
@@ -144,5 +160,5 @@ DESCRIPTION
   An easy way to run any of your npm scripts with yarn
 ```
 
-_See code: [src/commands/task.js](https://github.com/agrublev/hvn/blob/v2.1.0/src/commands/task.js)_
+_See code: [src/commands/task.js](https://github.com/agrublev/hvn/blob/v2.1.1/src/commands/task.js)_
 <!-- commandsstop -->

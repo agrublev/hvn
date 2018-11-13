@@ -6,11 +6,6 @@ const {text, clear, bigText, sleep} = require("../helpers");
 
 class Deploy extends Command {
 	async run() {
-
-		clear();
-		bigText("hvn");
-		await sleep(520);
-
 		let child = exec("surge", {async: true, silent: true});
 		child.stdout.on('data', function (data) {
 			console.log(chalk.yellow(data));
